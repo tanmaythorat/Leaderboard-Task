@@ -3,12 +3,18 @@ import { Clock, Filter, User, Calendar } from "lucide-react";
 import { userService } from "../services/api";
 
 const ClaimHistory = ({ users, onMessage }) => {
+
+    // Store claim history records and selected user
   const [claimHistory, setClaimHistory] = useState([]);
   const [selectedUserForHistory, setSelectedUserForHistory] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false); // dropdown state
 
-  useEffect(() => {
+  const [loading, setLoading] = useState(false); // Controls loading spinner
+  const [isOpen, setIsOpen] = useState(false); // dropdown open/close state
+
+
+
+    // Fetch claim history whenever the selected user changes
+    useEffect(() => {
     if (selectedUserForHistory) {
       fetchClaimHistory(selectedUserForHistory);
     } else {
@@ -16,7 +22,9 @@ const ClaimHistory = ({ users, onMessage }) => {
     }
   }, [selectedUserForHistory]);
 
-  const fetchClaimHistory = async (userId) => {
+
+    // Fetch all claims made by the selected user
+    const fetchClaimHistory = async (userId) => {
     try {
       setLoading(true);
       const data = await userService.getClaimHistory(userId);
@@ -28,7 +36,8 @@ const ClaimHistory = ({ users, onMessage }) => {
     }
   };
 
-  const fetchRecentClaims = async () => {
+    // Fetch last 5 global claim actions (if no user is selected)
+    const fetchRecentClaims = async () => {
     try {
       setLoading(true);
       const data = await userService.getRecentClaims();
@@ -40,12 +49,14 @@ const ClaimHistory = ({ users, onMessage }) => {
     }
   };
 
-  const handleUserSelect = (userId) => {
+    // Handle selecting a user from the dropdown
+    const handleUserSelect = (userId) => {
     setSelectedUserForHistory(userId);
     setIsOpen(false);
   };
 
-  const formatDate = (dateString) => {
+    // Format timestamp into readable date and time
+    const formatDate = (dateString) => {
     const date = new Date(dateString);
     return {
       date: date.toLocaleDateString(),
