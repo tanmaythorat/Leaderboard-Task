@@ -2,25 +2,36 @@ import React, { useState } from 'react';
 import { Star, Zap } from 'lucide-react';
 import { userService } from '../services/api';
 
-const ClaimButton = ({ selectedUserId, users, onPointsClaimed, onMessage }) => {
+const ClaimButton = ({ selectedUserId, users, onPointsClaimed, onMessage, onResetSelection }) => {
   const [loading, setLoading] = useState(false);
 
+  // Handler to claim points for a selected user
   const claimPoints = async () => {
     if (!selectedUserId) {
-      onMessage('Please select a user first', 'error');
+      onMessage('Please select a user first', 'error'); // Show error if no user selected
       return;
     }
 
     try {
       setLoading(true);
+
+      // Call backend API to claim points    
       const data = await userService.claimPoints(selectedUserId);
 
-      const points = data.points || Math.floor(Math.random() * 10) + 1; // fallback
+      // Fallback in case API doesn't return a value
+      const points = data.points || Math.floor(Math.random() * 10) + 1;
       const userName = users.find(u => u._id === selectedUserId)?.name || 'User';
 
       if (data.success || data.points !== undefined) {
         onMessage(`${userName} successfully claimed 🎉 ${points} points!`, 'success');
-        onPointsClaimed(); // refresh points display
+        onPointsClaimed();
+
+        // Auto-reset selected user after 5 seconds
+        setTimeout(() => {
+          if (onResetSelection) {
+            onResetSelection();
+          }
+        }, 5000);
       } else {
         onMessage('Something went wrong while claiming points.', 'error');
       }
@@ -28,10 +39,11 @@ const ClaimButton = ({ selectedUserId, users, onPointsClaimed, onMessage }) => {
     } catch (error) {
       onMessage('Error claiming points: ' + error.message, 'error');
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading animation
     }
   };
 
+  // Get selected user details to show current points
   const selectedUser = users.find(u => u._id === selectedUserId);
 
   return (
