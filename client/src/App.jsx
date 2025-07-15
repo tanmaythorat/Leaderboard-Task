@@ -75,6 +75,7 @@ const App = () => {
               users={users}
               onPointsClaimed={handlePointsClaimed}
               onMessage={showMessage}
+              onResetSelection={() => setSelectedUserId('')} 
             />
           </div>
         );
