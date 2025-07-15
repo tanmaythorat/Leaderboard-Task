@@ -17,4 +17,10 @@ app.use(express.json());
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/claim", require("./routes/claimRoutes"));
 
+
+// ✅ Ping route for uptime monitors
+app.get("/ping", (req, res) => {
+  res.status(200).send("pong");
+});
+
 module.exports = app;
