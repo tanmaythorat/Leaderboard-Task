@@ -11,15 +11,17 @@ import ClaimHistory from './components/ClaimHistory';
 import { userService } from './services/api';
 
 const App = () => {
-  const [users, setUsers] = useState([]);
-  const [selectedUserId, setSelectedUserId] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('leaderboard');
+  // State declarations
+  const [users, setUsers] = useState([]); // All users fetched from backend
+  const [selectedUserId, setSelectedUserId] = useState(''); // Currently selected user for claim
+  const [loading, setLoading] = useState(false); // Global loading state
+  const [activeTab, setActiveTab] = useState('leaderboard'); // Tracks current active tab
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
+  // Fetch users from backend API
   const fetchUsers = async () => {
     try {
       setLoading(true);
@@ -46,7 +48,7 @@ const App = () => {
 
   const handleUserAdded = () => {
     fetchUsers();
-    showMessage('User added successfully!', 'success');
+    // showMessage('User added successfully!', 'success');
   };
 
   const handlePointsClaimed = () => {
@@ -75,7 +77,7 @@ const App = () => {
               users={users}
               onPointsClaimed={handlePointsClaimed}
               onMessage={showMessage}
-              onResetSelection={() => setSelectedUserId('')} 
+                onResetSelection={() => setSelectedUserId('')} 
             />
           </div>
         );
