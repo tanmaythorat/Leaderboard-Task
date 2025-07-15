@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Users } from "lucide-react";
 
 const UserSelect = ({ users, selectedUserId, onUserSelect }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const selectedUser = users.find((u) => u._id === selectedUserId);
+  const [isOpen, setIsOpen] = useState(false); // controls dropdown visibility
+  const selectedUser = users.find((u) => u._id === selectedUserId); // get selected user object
+
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 relative">
