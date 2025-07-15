@@ -1,4 +1,19 @@
-node_modules/
+# .gitignore
+
+# Node modules
+**/node_modules
+
+# Logs
+logs
+*.log
+
+# dotenv
 .env
-build/
-dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build output
+**/build
+**/dist
