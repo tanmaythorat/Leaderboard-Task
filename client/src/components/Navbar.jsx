@@ -3,6 +3,8 @@ import { Trophy, Users, Clock } from 'lucide-react';
 
 const Navbar = ({ activeTab, setActiveTab, userCount }) => {
   const navItems = [
+    
+     // Define navigation items with labels and icons
     { id: 'leaderboard', label: 'Leaderboard', icon: Trophy },
     { id: 'actions', label: 'User Actions', icon: Users },
     { id: 'history', label: 'Claim History', icon: Clock }
