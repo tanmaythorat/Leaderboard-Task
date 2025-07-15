@@ -5,6 +5,8 @@ const Leaderboard = ({ users, loading }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
 
+
+  // Returns rank suffix like 1st, 2nd, 3rd, etc.
   const getRankSuffix = (rank) => {
     const j = rank % 10, k = rank % 100;
     if (j === 1 && k !== 11) return 'st';
@@ -13,6 +15,7 @@ const Leaderboard = ({ users, loading }) => {
     return 'th';
   };
 
+    // Color code ranks for top 3
   const getRankColor = (rank) => {
     if (rank === 1) return 'text-yellow-500';
     if (rank === 2) return 'text-gray-400';
@@ -20,6 +23,7 @@ const Leaderboard = ({ users, loading }) => {
     return 'text-gray-600';
   };
 
+    // Sort users by total points descending
   const sortedUsers = [...users].sort((a, b) => b.totalPoints - a.totalPoints);
 
   const totalPages = Math.ceil(sortedUsers.length / usersPerPage);
