@@ -4,9 +4,13 @@ import { userService } from '../services/api';
 import { toast } from 'react-toastify'; 
 
 const AddUser = ({ onUserAdded, loading }) => {
+  // Track the input value for new user name
   const [newUserName, setNewUserName] = useState('');
+
+  // Toggle form visibility
   const [showForm, setShowForm] = useState(false);
 
+  // Handle adding a user via API 
   const handleAddUser = async () => {
     if (!newUserName.trim()) return;
 
